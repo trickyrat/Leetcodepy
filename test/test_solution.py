@@ -743,7 +743,7 @@ class TestSolution:
         expected: Optional[TreeNode],
     ):
         actual = Solution.add_one_row(root, val, depth)
-        assert expected == actual
+        assert Util.level_traverse(actual) == Util.level_traverse(expected)
 
     @pytest.mark.parametrize(
         "pairs, expected",
@@ -771,7 +771,9 @@ class TestSolution:
         self, root: Optional[TreeNode], expected: List[Optional[TreeNode]]
     ):
         actual = Solution.find_duplicate_subtrees(root)
-        assert expected == actual
+        actual_level_traverse = sorted([Util.level_traverse(node) for node in actual])
+        expected_level_traverse = sorted([Util.level_traverse(node) for node in expected])
+        assert actual_level_traverse == expected_level_traverse
 
     @pytest.mark.parametrize(
         "root, expected",
@@ -857,7 +859,7 @@ class TestSolution:
         expected: Optional[TreeNode],
     ):
         actual = Solution.trim_bst(root, low, high)
-        assert expected == actual
+        assert Util.level_traverse(actual) == Util.level_traverse(expected)
 
     @pytest.mark.parametrize("num, expected", [(2736, 7236), (9973, 9973)])
     def test_maximum_swap(self, num: int, expected: int):
@@ -1405,7 +1407,7 @@ class TestSolution:
         self, root: Optional[TreeNode], val: int, expected: Optional[TreeNode]
     ):
         actual = Solution.insert_into_max_tree(root, val)
-        assert expected == actual
+        assert Util.level_traverse(actual) == Util.level_traverse(expected)
 
     @pytest.mark.parametrize(
         "expression, expected",
