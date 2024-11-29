@@ -1,3 +1,4 @@
+from collections import deque
 from src.data_structures.list_node import ListNode
 from src.data_structures.tree_node import TreeNode
 from src.data_structures.node import Node
@@ -160,3 +161,17 @@ class Util:
             else:
                 q.pop(0)
         return root
+
+    @staticmethod
+    def level_traverse(root: Optional[TreeNode]) -> List[int]:
+        queue: deque[TreeNode] = deque()
+        queue.append(root)
+        res = []
+        while queue:
+            node: TreeNode = queue.popleft()
+            res.append(node.val)
+            if node.left is not None:
+                queue.append(node.left)
+            if node.right is not None:
+                queue.append(node.right)
+        return res
