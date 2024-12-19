@@ -2227,3 +2227,14 @@ class TestSolution:
     def test_minimum_added_coins(self, coins: List[int], target: int, expected: int):
         actual = Solution.minimum_added_coins(coins, target)
         assert expected == actual
+
+    @pytest.mark.parametrize(
+        "nums, k, multiplier, expected",
+        [
+            ([2, 1, 3, 5, 6], 5, 2, [8, 4, 6, 5, 6]),
+            ([1, 2], 3, 4, [16, 8]),
+        ],
+    )
+    def test_get_final_state(self, nums: List[int], k: int, multiplier: int, expected: List[int]):
+        actual = Solution.get_final_state(nums, k, multiplier)
+        assert expected == actual

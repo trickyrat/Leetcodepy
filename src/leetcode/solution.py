@@ -1,5 +1,6 @@
 import collections
 from _heapq import heappop, heappush
+from heapq import heapify
 from itertools import pairwise, zip_longest, product
 from bisect import bisect_right, bisect_left
 from math import inf, floor
@@ -2797,3 +2798,19 @@ class Solution:
                 x <<= 1
                 res += 1
         return res
+    
+    @staticmethod
+    def get_final_state(nums: List[int], k: int, multiplier: int) -> List[int]:
+        """3264. Final Array State After K Multiplication Operations I"""
+        if multiplier == 1:
+            return nums
+        pq = [(element, index) for index, element in enumerate(nums)]
+        heapify(pq)
+        while k > 0:
+            k -= 1
+            element, index = heappop(pq)
+            element *= multiplier
+            heappush(pq, (element, index))
+        
+        pq.sort(key=lambda x: x[1])
+        return [element for element, _ in pq]
