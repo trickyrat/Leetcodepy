@@ -772,7 +772,9 @@ class TestSolution:
     ):
         actual = Solution.find_duplicate_subtrees(root)
         actual_level_traverse = sorted([Util.level_traverse(node) for node in actual])
-        expected_level_traverse = sorted([Util.level_traverse(node) for node in expected])
+        expected_level_traverse = sorted(
+            [Util.level_traverse(node) for node in expected]
+        )
         assert actual_level_traverse == expected_level_traverse
 
     @pytest.mark.parametrize(
@@ -2235,6 +2237,20 @@ class TestSolution:
             ([1, 2], 3, 4, [16, 8]),
         ],
     )
-    def test_get_final_state(self, nums: List[int], k: int, multiplier: int, expected: List[int]):
+    def test_get_final_state(
+        self, nums: List[int], k: int, multiplier: int, expected: List[int]
+    ):
         actual = Solution.get_final_state(nums, k, multiplier)
+        assert expected == actual
+
+    @pytest.mark.parametrize(
+        "nums, expected",
+        [
+            ([0, 1, 1, 0], [0, 1]),
+            ([0, 3, 2, 1, 3, 2], [2, 3]),
+            ([7, 1, 5, 4, 3, 4, 6, 0, 9, 5, 8, 2], [4, 5]),
+        ],
+    )
+    def test_get_sneaky_numbers(self, nums: List[int], expected: List[int]):
+        actual = Solution.get_sneaky_numbers(nums)
         assert expected == actual

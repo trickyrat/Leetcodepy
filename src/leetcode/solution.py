@@ -3,7 +3,7 @@ from _heapq import heappop, heappush
 from heapq import heapify
 from itertools import pairwise, zip_longest, product
 from bisect import bisect_right, bisect_left
-from math import inf, floor
+from math import inf, floor, sqrt
 from typing import List, Optional
 
 from collections import Counter, deque, defaultdict
@@ -2739,7 +2739,7 @@ class Solution:
             res = (res * 2) % MOD
             i = j
         return res
-    
+
     @staticmethod
     def max_div_score(nums: List[int], divisors: List[int]) -> int:
         """2644.Find the Maximum Divisibility Score"""
@@ -2750,12 +2750,11 @@ class Solution:
                 cnt = tmp
                 res = divisors[i]
         return res
-    
+
     @staticmethod
     def the_maximum_achievable_x(num: int, t: int) -> int:
         """2769. Find the Maximum Achievable Number"""
         return num + 2 * t
-
 
     @staticmethod
     def minimum_sum(nums: List[int]) -> int:
@@ -2771,7 +2770,7 @@ class Solution:
                 res = min(res, left[i] + nums[i] + right)
             right = min(right, nums[i])
         return res if res < 1000 else -1
-    
+
     @staticmethod
     def minimum_steps(s: str) -> int:
         """2938. Separate Black and White Balls"""
@@ -2798,7 +2797,7 @@ class Solution:
                 x <<= 1
                 res += 1
         return res
-    
+
     @staticmethod
     def get_final_state(nums: List[int], k: int, multiplier: int) -> List[int]:
         """3264. Final Array State After K Multiplication Operations I"""
@@ -2811,6 +2810,18 @@ class Solution:
             element, index = heappop(pq)
             element *= multiplier
             heappush(pq, (element, index))
-        
+
         pq.sort(key=lambda x: x[1])
         return [element for element, _ in pq]
+
+    @staticmethod
+    def get_sneaky_numbers(nums: List[int]) -> List[int]:
+        """3289. The Two Sneaky Numbers of Digitville"""
+        n = len(nums) - 2
+        a = -n * (n - 1) // 2
+        b = -n * (n - 1) * (n * 2 - 1) // 6
+        for x in nums:
+            a += x
+            b += x * x
+        x = int((a - sqrt(b * 2 - a * a)) / 2)
+        return [x, a - x]
